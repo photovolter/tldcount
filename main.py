@@ -8,6 +8,11 @@ text = surowe_info.text
 cleantest = re.compile('<.*?>|- ')
 efekt = text.rsplit('</p>')
 
+def maxstr(tocheck):
+    maxlen = max(tocheck, key=len)
+    minlen = min(tocheck, key=len)
+    return [minlen, maxlen]
+
 
 def splittld(tosplit):
     splitted = tosplit.split('.')
@@ -39,4 +44,6 @@ sumapl = sum(1 for i, s in enumerate(newefekt) if splittld(s)[0] not in tldlist 
 sumapltld = sum(1 for i, s in enumerate(newefekt) if splittld(s)[0] in tldlist)
 print(f"Flagi w domenie pl, bez domeny drugiego poziomu: {sumapl}")
 print(f"Flagi w domenie pl z domeną drugiego poziomu: {sumapltld}")
+print(f"Najkrótsza nazwa domeny: {maxstr(newefekt)[0]}")
+print(f"Najkrótsza nazwa domeny: {maxstr(newefekt)[1]}")
 
