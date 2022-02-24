@@ -12,6 +12,10 @@ surowe_info = requests.get(orangutan)
 text = surowe_info.text
 cleantest = re.compile('<.*?>|- ')
 efekt = text.rsplit('</p>')
+letterslist = 'abcdefghijklmnopqrstuvwxyz'
+
+def listToString(listjoin):
+    return (''.join(listjoin))
 
 
 # Funkcja maxstr wykorzystuje wbudowane funkcje min i max do znalezienia najdłuższego i najkrótszego elementu na liście.
@@ -70,12 +74,25 @@ for i, linia in enumerate(efekt):
     if validateDomain(efekt[i]):
         newefekt.append(efekt[i])
 
+
+
+stringfromlist = listToString(newefekt).lower()
+lettersdict = {}
+for letter in letterslist:
+    lettersdict[letter] = stringfromlist.count(letter)
+
+
 # W następnych 2 liniach wykorzystano mechanizm List Comprehension.
 # Jest to inna metoda zapisu pętli for.
 sumapl = sum(1 for i, s in enumerate(newefekt) if splittld(s)[0] not in tldlist and splittld(s)[1]=='pl')
 sumapltld = sum(1 for i, s in enumerate(newefekt) if splittld(s)[0] in tldlist)
 
+print()
 print(f"Flagi w domenie pl, bez domeny drugiego poziomu: {sumapl}")
 print(f"Flagi w domenie pl z domeną drugiego poziomu: {sumapltld}")
+print()
 print(f"Najkrótsza nazwa domeny: {maxstr(newefekt)[0]}")
 print(f"Najkrótsza nazwa domeny: {maxstr(newefekt)[1]}")
+print()
+print('Liczebność znaków alfabetu:')
+[print(key,':',value) for key, value in lettersdict.items()]
