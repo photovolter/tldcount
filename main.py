@@ -2,7 +2,6 @@ from domainnames import tldlist
 import requests
 import re
 
-domain = 'www.artbit.dupa'
 orangutan = 'https://zajecia-programowania-xd.pl/flagi'
 surowe_info = requests.get(orangutan)
 text = surowe_info.text
