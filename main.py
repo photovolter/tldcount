@@ -10,11 +10,11 @@ import re
 orangutan = 'https://zajecia-programowania-xd.pl/flagi'
 surowe_info = requests.get(orangutan)
 text = surowe_info.text
-cleantest = re.compile('<.*?>|- ')
+cleantest = re.compile('<.*?>|- |:(.*)+')
 efekt = text.rsplit('</p>')
-letterslist = 'abcdefghijklmnopqrstuvwxyz'
+letterslist = 'abcdefghijklmnopqrstuvwxyz.'
 
-def listToString(listjoin):
+def listtostring(listjoin):
     return (''.join(listjoin))
 
 
@@ -49,7 +49,7 @@ def splittld(tosplit):
 # 3. Sprawdzamy czy string nie jest pusty, zwracamy false, jeżeli jest.
 # 4. Użycie mudułu Pythona re (regex) w celu dopasowania ciągu znaków do wzorca.
 
-def validateDomain(domainname):
+def validatedomain(domainname):
     regex = "^((?!-)[A-Za-z0-9-]" + "{1,63}(?<!-)\\.)" + "+[A-Za-z]{2,6}"
     p = re.compile(regex)
     if domainname is None:
@@ -71,12 +71,12 @@ newefekt = []
 
 for i, linia in enumerate(efekt):
     efekt[i] = re.sub(cleantest, '', linia)
-    if validateDomain(efekt[i]):
+    if validatedomain(efekt[i]):
         newefekt.append(efekt[i])
 
 
 
-stringfromlist = listToString(newefekt).lower()
+stringfromlist = listtostring(newefekt).lower()
 lettersdict = {}
 for letter in letterslist:
     lettersdict[letter] = stringfromlist.count(letter)
@@ -91,8 +91,9 @@ print()
 print(f"Flagi w domenie pl, bez domeny drugiego poziomu: {sumapl}")
 print(f"Flagi w domenie pl z domeną drugiego poziomu: {sumapltld}")
 print()
-print(f"Najkrótsza nazwa domeny: {maxstr(newefekt)[0]}")
+print(f"Najkrótsza nazwa domeny: {len(maxstr(newefekt)[0])}")
 print(f"Najkrótsza nazwa domeny: {maxstr(newefekt)[1]}")
 print()
 print('Liczebność znaków alfabetu:')
+
 [print(key,':',value) for key, value in lettersdict.items()]
