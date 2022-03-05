@@ -4,9 +4,9 @@ import re
 
 flagsurl = 'https://zajecia-programowania-xd.pl/flagi'
 rawdata = requests.get(flagsurl)
-text = rawdata.text
+rawtext = rawdata.text
 cleantext = re.compile('<.*?>|- |:(.*)+|/(.*)+')
-urlslist = text.rsplit('</p>')
+urlslist = rawtext.rsplit('</p>')
 letterslist = 'abcdefghijklmnopqrstuvwxyz.'
 
 
