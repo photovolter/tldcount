@@ -1,7 +1,13 @@
 from domainnames import tldlist
 import requests
 import re
+import time
 
+
+def current_milli_time():
+    return round(time.time() * 1000)
+
+t1 = current_milli_time()
 flagsurl = 'https://zajecia-programowania-xd.pl/flagi'
 rawdata = requests.get(flagsurl)
 rawtext = rawdata.text
@@ -73,3 +79,5 @@ print()
 print('Liczebność znaków alfabetu:')
 
 [print(key,':',value) for key, value in lettersdict.items()]
+t = current_milli_time()-t1
+print(t)
